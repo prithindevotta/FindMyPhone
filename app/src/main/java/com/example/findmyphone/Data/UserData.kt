@@ -3,7 +3,11 @@ package com.example.findmyphone.Data
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.view.View
+import com.example.findmyphone.MainActivity
 import com.example.findmyphone.startUp.LoginActivity
+import com.google.firebase.database.*
+import kotlinx.android.synthetic.main.activity_main.*
 
 class UserData(var context: Context) {
     var sharedPreferences: SharedPreferences? = context.getSharedPreferences("userData", Context.MODE_PRIVATE)
@@ -16,12 +20,16 @@ class UserData(var context: Context) {
 
     fun loadPhoneNumber(): String?{
         val phoneNumber = sharedPreferences!!.getString("phoneNumber", "empty")
+        return phoneNumber
+    }
+    fun checkFirstLoad(){
+        val phoneNumber = sharedPreferences!!.getString("phoneNumber", "empty")
         if(phoneNumber.equals("empty")){
             val intent = Intent(context, LoginActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             context.startActivity(intent)
         }
-        return phoneNumber
+        return
     }
     fun saveContactInfo(){
         var listOfTrackers: String = ""

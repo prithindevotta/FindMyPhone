@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.findmyphone.Data.UserContact
 import com.example.findmyphone.Data.UserData
+import com.google.firebase.database.FirebaseDatabase
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_my_tracker.*
 import java.security.Permission
 
@@ -34,7 +36,6 @@ class MyTracker : AppCompatActivity(), OnClick{
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val inflate = menuInflater
         menuInflater.inflate(R.menu.tracker_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
@@ -112,7 +113,8 @@ class MyTracker : AppCompatActivity(), OnClick{
                             mUserData!!.saveContactInfo()
 
                             //save user details to database
-
+                            val mDatabase = FirebaseDatabase.getInstance().reference
+                            mDatabase.child("Users").child(phoneNumber).child("finders").child(UserData(applicationContext).loadPhoneNumber()!!).setValue(true)
                         }
                     }
                 }
@@ -136,6 +138,8 @@ class MyTracker : AppCompatActivity(), OnClick{
         UserData.myTrackers.remove(clicked.phoneNumber)
         refreshData()
         mUserData!!.saveContactInfo()
+        val mDatabase = FirebaseDatabase.getInstance().reference
+        mDatabase.child("Users").child(clicked.phoneNumber!!).child("finders").child(UserData(this).loadPhoneNumber()!!).removeValue()
     }
 }
 

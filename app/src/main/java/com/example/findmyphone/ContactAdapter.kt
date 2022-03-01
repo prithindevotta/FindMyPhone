@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.findmyphone.Data.UserContact
+import org.jetbrains.annotations.Contract
 import java.util.zip.Inflater
 
 class ContactAdapter(var listener: OnClick, var contacts: ArrayList<UserContact>):RecyclerView.Adapter<ContactHolder>(){
@@ -32,6 +33,6 @@ class ContactAdapter(var listener: OnClick, var contacts: ArrayList<UserContact>
 }
 
 class ContactHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-    val name: TextView = itemView.findViewById<TextView>(R.id.name)
-    val phoneNumber: TextView = itemView.findViewById<TextView>(R.id.phoneNumber)
+    val name: TextView = itemView.findViewById(R.id.name)
+    val phoneNumber: TextView = itemView.findViewById(R.id.phoneNumber)
 }

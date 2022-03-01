@@ -31,7 +31,6 @@ class LoginActivity : AppCompatActivity() {
             val date = Date()
             mDatabase.child("Users").child(editTextPhone.text.toString()).child("request").setValue(df.format(date).toString())
             mDatabase.child("Users").child(editTextPhone.text.toString()).child("finders").setValue(df.format(date).toString())
-
             finish()
         }
         mAuth!!.signInAnonymously()
